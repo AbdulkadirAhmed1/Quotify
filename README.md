@@ -5,7 +5,7 @@
 - Backend: FastAPI (Python) + MongoDB (Atlas)
 - Frontend: HTML, CSS, Vanilla JS
 - Database: NoSQL (MongoDB Atlas)
-- ☁Deployment: Render (Backend + Frontend)
+- Deployment: Render (Backend + Frontend)
 
 ---
 
