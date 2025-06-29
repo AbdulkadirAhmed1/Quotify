@@ -2,14 +2,14 @@
 
 **Quotify** is a public, API-driven full stack project for managing inspirational quotes and notes.
 
-- 🚀 Backend: FastAPI (Python) + MongoDB (Atlas)
-- 🌐 Frontend: HTML, CSS, Vanilla JS
-- 📦 Database: NoSQL (MongoDB Atlas)
-- ☁️ Deployment: Render (Backend + Frontend)
+- Backend: FastAPI (Python) + MongoDB (Atlas)
+- Frontend: HTML, CSS, Vanilla JS
+- Database: NoSQL (MongoDB Atlas)
+- ☁Deployment: Render (Backend + Frontend)
 
 ---
 
-## ⚠️ Work In Progress
+## Work In Progress
 
 This project is actively being developed. Below is the estimated roadmap:
 
@@ -27,11 +27,11 @@ This project is actively being developed. Below is the estimated roadmap:
 
 ## Features
 
-✅ Get random quote  
-✅ Full CRUD for quotes (create, read, update, delete)  
-✅ Public REST API  
-✅ Simple responsive frontend website  
-✅ Cloud-hosted database  
+- Get random quote  
+- Full CRUD for quotes (create, read, update, delete)  
+- Public REST API  
+- Simple responsive frontend website  
+- Cloud-hosted database  
 
 ---
 
