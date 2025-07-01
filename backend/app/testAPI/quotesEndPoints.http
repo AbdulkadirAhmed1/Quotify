@@ -9,3 +9,30 @@ Content-Type: application/json
   "text": "Test quote from VSCode",
   "author": "VSCode Tester"
 }
+
+### Add Quote
+POST http://127.0.0.1:8000/quotes
+Content-Type: application/json
+
+{
+    "text": "Discipline is freedom.",
+    "author": "Anonymous"
+}
+
+### Add Invalid Quote 
+POST http://127.0.0.1:8000/quotes
+Content-Type: application/json
+
+{
+    "text": "",
+    "author": "Test"
+}
+
+### Add Invalid Quote
+POST http://127.0.0.1:8000/quotes
+Content-Type: application/json
+
+{
+    "text": "Great quote",
+    "author": ""
+}
