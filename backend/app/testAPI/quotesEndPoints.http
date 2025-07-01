@@ -1,0 +1,11 @@
+### Get Random Quote
+GET http://127.0.0.1:8000/quotes/random
+
+### Add Quote
+POST http://127.0.0.1:8000/quotes
+Content-Type: application/json
+
+{
+  "text": "Test quote from VSCode",
+  "author": "VSCode Tester"
+}

@@ -1,7 +1,10 @@
+# /app/api/quotes.py
+
 from fastapi import APIRouter, HTTPException
 from app.db.mongo import quotes_collection
 from app.models.quote_model import QuoteModel
 from bson.objectid import ObjectId
+import random
 
 router = APIRouter()
 
@@ -13,19 +16,46 @@ def quote_helper(quote) -> dict:
         "author": quote["author"]
     }
 
+# Get a random valid quote
 @router.get("/quotes/random")
 async def get_random_quote():
-    quote = await quotes_collection.aggregate([{"$sample": {"size": 1}}]).to_list(length=1)
-    if quote:
-        return quote_helper(quote[0])
-    return {"message": "No quotes found"}
+    try:
+        quotes = await quotes_collection.find({"text": {"$exists": True}, "author": {"$exists": True}}).to_list(length=100)
+        
+        if not quotes:
+            raise HTTPException(status_code=404, detail="No quotes found")
 
+        quote = random.choice(quotes)
+        return quote_helper(quote)
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Server error: {e}")
+
+# Get all valid quotes
+@router.get("/quotes")
+async def get_all_quotes():
+    try:
+        quotes = await quotes_collection.find({"text": {"$exists": True}, "author": {"$exists": True}}).to_list(length=100)
+        
+        if not quotes:
+            raise HTTPException(status_code=404, detail="No quotes found")
+
+        return [quote_helper(quote) for quote in quotes]
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Server error: {e}")
+
+# Add a new quote
 @router.post("/quotes")
 async def add_quote(quote: QuoteModel):
-    new_quote = {"text": quote.text, "author": quote.author}
-    result = await quotes_collection.insert_one(new_quote)
-    
-    if result.inserted_id:
+    try:
+        new_quote = {"text": quote.text, "author": quote.author}
+        result = await quotes_collection.insert_one(new_quote)
+        
+        if not result.inserted_id:
+            raise HTTPException(status_code=500, detail="Failed to add quote")
+
         return {"id": str(result.inserted_id), "message": "Quote added successfully"}
     
-    raise HTTPException(status_code=500, detail="Failed to add quote")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Server error: {str(e)}")
