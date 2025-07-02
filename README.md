@@ -1,6 +1,19 @@
 # Quotify
 
-**Quotify** is a public, API-driven full stack project for managing inspirational quotes and notes.
+**Quotify** is a public, API-driven full stack project designed to manage, share, and display inspirational quotes through a clean, modern REST API and simple frontend interface.
+
+Built with scalability, clarity, and best practices in mind, this project demonstrates key software engineering principles across both backend and frontend development. The backend leverages Python's FastAPI framework to deliver a fast, robust, and secure REST API, while MongoDB Atlas provides flexible NoSQL cloud storage for persistent data.
+
+On the frontend, Quotify incorporates a lightweight, responsive interface using pure HTML, CSS, and Vanilla JavaScript — ideal for showcasing frontend fundamentals without heavy dependencies.
+
+This project is intentionally structured to reflect professional software development workflows, including:
+
+- Modular project organization  
+- Consistent API standards with clear response formatting  
+- Error handling and validation  
+- Cloud deployment for real-world accessibility  
+
+Quotify serves as both a learning tool and portfolio piece, ideal for demonstrating backend engineering, REST API design, database integration, and full stack project delivery. 
 
 - Backend: FastAPI (Python) + MongoDB (Atlas)
 - Frontend: HTML, CSS, Vanilla JS
