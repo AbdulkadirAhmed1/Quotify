@@ -1,7 +1,12 @@
-### Get Random Quote
+### Get Random Quote (Returns single random quote or error if none)
 GET http://127.0.0.1:8000/quotes/random
 
-### Add Quote
+
+### Get All Quotes (Returns full list or error if empty)
+GET http://127.0.0.1:8000/quotes
+
+
+### Add Valid Quote 1
 POST http://127.0.0.1:8000/quotes
 Content-Type: application/json
 
@@ -10,29 +15,38 @@ Content-Type: application/json
   "author": "VSCode Tester"
 }
 
-### Add Quote
+
+### Add Valid Quote 2
 POST http://127.0.0.1:8000/quotes
 Content-Type: application/json
 
 {
-    "text": "Discipline is freedom.",
-    "author": "Anonymous"
+  "text": "Discipline is freedom.",
+  "author": "Anonymous"
 }
 
-### Add Invalid Quote 
+
+### Add Invalid Quote (Empty text)
 POST http://127.0.0.1:8000/quotes
 Content-Type: application/json
 
 {
-    "text": "",
-    "author": "Test"
+  "text": "",
+  "author": "Test"
 }
 
-### Add Invalid Quote
+
+### Add Invalid Quote (Empty author)
 POST http://127.0.0.1:8000/quotes
 Content-Type: application/json
 
 {
-    "text": "Great quote",
-    "author": ""
+  "text": "Great quote",
+  "author": ""
 }
+
+### Delete Quote by ID
+DELETE http://127.0.0.1:8000/quotes/[Insert_ID]  
+
+### Delete All Quotes
+DELETE http://127.0.0.1:8000/quotes
