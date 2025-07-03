@@ -61,4 +61,4 @@ Content-Type: application/json
 }
 
 ### Search Quotes
-GET http://127.0.0.1:8000/quotes/search?query=wisdom
+GET http://127.0.0.1:8000/quotes/search?query=
