@@ -82,3 +82,61 @@ async def delete_all_quotes():
         return {"success": True, "message": f"Deleted {result.deleted_count} quotes"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Server error: {str(e)}")
+
+@router.patch("/quotes/{quote_id}")
+async def update_quote(quote_id: str, quote_update: QuoteModel):
+    try:
+        if not ObjectId.is_valid(quote_id):
+            raise HTTPException(status_code=400, detail={"success": False, "message": "Invalid quote ID"})
+
+        result = await quotes_collection.find_one_and_update(
+            {"_id": ObjectId(quote_id)},
+            {"$set": {"text": quote_update.text, "author": quote_update.author}},
+            return_document=True
+        )
+
+        if not result:
+            raise HTTPException(status_code=404, detail={"success": False, "message": "Quote not found"})
+
+        return {
+            "success": True,
+            "data": quote_helper(result)
+        }
+
+    except HTTPException as he:
+        raise he
+    except Exception as e:
+        raise HTTPException(status_code=500, detail={"success": False, "message": f"Server error: {str(e)}"}) 
+
+@router.get("/quotes/search")
+async def search_quotes(query: str):
+    try:
+        search_filter = {
+            "$or": [
+                {"text": {"$regex": query, "$options": "i"}},
+                {"author": {"$regex": query, "$options": "i"}}
+            ]
+        }
+
+        quotes = await quotes_collection.find(search_filter).to_list(length=100)
+
+        if not quotes:
+            raise HTTPException(status_code=404, detail={"success": False, "message": "No matching quotes found"})
+
+        return {
+            "success": True,
+            "data": [
+                {
+                    "id": str(quote["_id"]),
+                    "text": quote["text"],
+                    "author": quote["author"]
+                }
+                for quote in quotes
+            ]
+        }
+
+    except HTTPException as he:
+        raise he
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail={"success": False, "message": f"Server error: {str(e)}"})

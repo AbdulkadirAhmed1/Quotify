@@ -49,4 +49,16 @@ Content-Type: application/json
 DELETE http://127.0.0.1:8000/quotes/[Insert_ID]  
 
 ### Delete All Quotes
-DELETE http://127.0.0.1:8000/quotes
+DELETE http://127.0.0.1:8000/quotes 
+
+### Update Existing Quote
+PATCH http://127.0.0.1:8000/quotes/6865c2f971f9e01bf1a41b28
+Content-Type: application/json
+
+{
+  "text": "Updated wisdom.",
+  "author": "Editor"
+}
+
+### Search Quotes
+GET http://127.0.0.1:8000/quotes/search?query=wisdom
