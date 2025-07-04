@@ -33,19 +33,32 @@ async def get_random_quote():
         raise HTTPException(status_code=500, detail=f"Server error: {str(e)}")
 
 @router.get("/quotes")
-async def get_all_quotes():
+async def get_all_quotes(skip: int = 0, limit: int = 10):
     try:
-        quotes = await quotes_collection.find({"text": {"$exists": True}, "author": {"$exists": True}}).to_list(length=100)
-        
-        if not quotes:
-            raise HTTPException(status_code=404, detail="No quotes found")
+        quotes = await quotes_collection.find(
+            {"text": {"$exists": True}, "author": {"$exists": True}}
+        ).skip(skip).limit(limit).to_list(length=limit)
 
-        return {"success": True, "data": [quote_helper(q) for q in quotes]}
-    
+        if not quotes:
+            raise HTTPException(status_code=404, detail={"success": False, "message": "No quotes found"})
+
+        return {
+            "success": True,
+            "data": [
+                {
+                    "id": str(quote["_id"]),
+                    "text": quote["text"],
+                    "author": quote["author"]
+                }
+                for quote in quotes
+            ]
+        }
+
     except HTTPException as he:
         raise he
+
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Server error: {str(e)}")
+        raise HTTPException(status_code=500, detail={"success": False, "message": f"Server error: {str(e)}"})
 
 @router.post("/quotes")
 async def add_quote(quote: QuoteModel):

@@ -1,10 +1,24 @@
 ### Get Random Quote (Returns single random quote or error if none)
 GET http://127.0.0.1:8000/quotes/random
 
+### Get First 3 Quotes (Returns up to 3 quotes)
+GET http://127.0.0.1:8000/quotes?skip=0&limit=3
 
-### Get All Quotes (Returns full list or error if empty)
+
+### Get Next 3 Quotes (Skips first 3, returns next set)
+GET http://127.0.0.1:8000/quotes?skip=3&limit=3
+
+
+### Get All Quotes Default (Defaults to 10 if no limit provided)
 GET http://127.0.0.1:8000/quotes
 
+
+### Get All Quotes with Large Limit (Capped at total available)
+GET http://127.0.0.1:8000/quotes?skip=0&limit=100
+
+
+### Get Quotes with Skip Beyond Range (Expect "No quotes found")
+GET http://127.0.0.1:8000/quotes?skip=999&limit=5
 
 ### Add Valid Quote 1
 POST http://127.0.0.1:8000/quotes
