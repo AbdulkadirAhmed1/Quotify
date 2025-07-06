@@ -1,24 +1,24 @@
 # Quotify
 
-**Quotify** is a public, API-driven full stack project designed to manage, share, and display inspirational quotes through a clean, modern REST API and simple frontend interface.
+**Quotify** is more than just a project — it's a clean, modern platform to collect, share, and celebrate inspirational quotes through a simple API and frontend interface.
 
-Built with scalability, clarity, and best practices in mind, this project demonstrates key software engineering principles across both backend and frontend development. The backend leverages Python's FastAPI framework to deliver a fast, robust, and secure REST API, while MongoDB Atlas provides flexible NoSQL cloud storage for persistent data.
+This full stack app is designed to feel approachable but built with real-world, professional standards in mind. On the backend, we use Python's powerful FastAPI framework to deliver a fast, reliable, and secure API. MongoDB Atlas handles our data — flexible, cloud-based storage to keep everything organized.
 
-On the frontend, Quotify incorporates a lightweight, responsive interface using pure HTML, CSS, and Vanilla JavaScript — ideal for showcasing frontend fundamentals without heavy dependencies.
+The frontend? No heavy frameworks here — just pure, responsive HTML, CSS, and Vanilla JavaScript. It's intentionally lightweight to showcase how simple tools can still create something functional and polished.
 
-This project is intentionally structured to reflect professional software development workflows, including:
+**Why Quotify matters:**  
+It's designed as a learning tool and portfolio project to demonstrate real backend engineering, API design, and clean full stack development — the same principles recruiters love to see:
 
-- Modular project organization  
-- Consistent API standards with clear response formatting  
+- Clear project structure  
+- Professional API response standards  
 - Error handling and validation  
-- Cloud deployment for real-world accessibility  
+- Cloud deployment for real-world use  
 
-Quotify serves as both a learning tool and portfolio piece, ideal for demonstrating backend engineering, REST API design, database integration, and full stack project delivery. 
-
-- **Backend:** FastAPI (Python) + MongoDB (Atlas)  
-- **Frontend:** HTML, CSS, Vanilla JS  
-- **Database:** NoSQL (MongoDB Atlas)  
-- **Deployment:** Render (Backend + Frontend)  
+**Tech Stack:**  
+- Backend: FastAPI (Python) + MongoDB (Atlas)  
+- Frontend: HTML, CSS, Vanilla JS  
+- Database: NoSQL (MongoDB Atlas)  
+- Deployment: Render (Backend + Frontend)  
 
 ---
 
