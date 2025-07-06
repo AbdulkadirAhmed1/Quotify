@@ -3,7 +3,8 @@
 from fastapi import APIRouter, HTTPException
 from app.db.mongo import quotes_collection
 from app.models.quote_model import QuoteModel
-from bson.objectid import ObjectId
+from bson.objectid import ObjectId 
+from datetime import datetime
 import random
 
 router = APIRouter()
@@ -35,23 +36,18 @@ async def get_random_quote():
 @router.get("/quotes")
 async def get_all_quotes(skip: int = 0, limit: int = 10):
     try:
-        quotes = await quotes_collection.find(
+        cursor = quotes_collection.find(
             {"text": {"$exists": True}, "author": {"$exists": True}}
-        ).skip(skip).limit(limit).to_list(length=limit)
+        ).sort("created_at", -1).skip(skip).limit(limit)
+
+        quotes = await cursor.to_list(length=limit)
 
         if not quotes:
             raise HTTPException(status_code=404, detail={"success": False, "message": "No quotes found"})
 
         return {
             "success": True,
-            "data": [
-                {
-                    "id": str(quote["_id"]),
-                    "text": quote["text"],
-                    "author": quote["author"]
-                }
-                for quote in quotes
-            ]
+            "data": [quote_helper(quote) for quote in quotes]
         }
 
     except HTTPException as he:
@@ -60,19 +56,24 @@ async def get_all_quotes(skip: int = 0, limit: int = 10):
     except Exception as e:
         raise HTTPException(status_code=500, detail={"success": False, "message": f"Server error: {str(e)}"})
 
+
 @router.post("/quotes")
 async def add_quote(quote: QuoteModel):
     try:
-        new_quote = {"text": quote.text, "author": quote.author}
+        new_quote = {
+            "text": quote.text,
+            "author": quote.author,
+            "created_at": datetime.utcnow()
+        }
         result = await quotes_collection.insert_one(new_quote)
-        
+
         if not result.inserted_id:
-            raise HTTPException(status_code=500, detail="Failed to add quote")
-        
+            raise HTTPException(status_code=500, detail={"success": False, "message": "Failed to add quote"})
+
         return {"success": True, "data": {"id": str(result.inserted_id), "message": "Quote added successfully"}}
-    
+
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Server error: {str(e)}")
+        raise HTTPException(status_code=500, detail={"success": False, "message": f"Server error: {str(e)}"})
 
 @router.delete("/quotes/{quote_id}")
 async def delete_quote(quote_id: str):

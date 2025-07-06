@@ -39,6 +39,24 @@ Content-Type: application/json
   "author": "Anonymous"
 }
 
+### Add Quote with Excessive Text (Expect 422)
+POST http://127.0.0.1:8000/quotes
+Content-Type: application/json
+
+{
+  "text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "author": "Test"
+}
+
+
+### Add Quote with Empty Author (Expect 422)
+POST http://127.0.0.1:8000/quotes
+Content-Type: application/json
+
+{
+  "text": "Valid quote",
+  "author": ""
+}
 
 ### Add Invalid Quote (Empty text)
 POST http://127.0.0.1:8000/quotes
@@ -75,4 +93,43 @@ Content-Type: application/json
 }
 
 ### Search Quotes
-GET http://127.0.0.1:8000/quotes/search?query=
+GET http://127.0.0.1:8000/quotes/search?query= 
+
+
+### -----[EXTRA TEST]-------- 
+
+### Add Quote 1 (Oldest)
+POST http://127.0.0.1:8000/quotes
+Content-Type: application/json
+
+{
+  "text": "First quote",
+  "author": "Tester"
+}
+
+### Add Quote 2
+POST http://127.0.0.1:8000/quotes
+Content-Type: application/json
+
+{
+  "text": "Second quote",
+  "author": "Tester"
+}
+
+### Add Quote 3 (Newest)
+POST http://127.0.0.1:8000/quotes
+Content-Type: application/json
+
+{
+  "text": "Newest insight",
+  "author": "Tester"
+}
+
+### Get All Quotes Sorted (Expect newest first)
+GET http://127.0.0.1:8000/quotes?skip=0&limit=10
+
+### Get Quotes with Pagination (Skip 1, get next 2)
+GET http://127.0.0.1:8000/quotes?skip=1&limit=2
+
+### Get Quotes with Large Skip (Expect empty)
+GET http://127.0.0.1:8000/quotes?skip=100&limit=5
