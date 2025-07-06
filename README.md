@@ -15,26 +15,26 @@ This project is intentionally structured to reflect professional software develo
 
 Quotify serves as both a learning tool and portfolio piece, ideal for demonstrating backend engineering, REST API design, database integration, and full stack project delivery. 
 
-- Backend: FastAPI (Python) + MongoDB (Atlas)
-- Frontend: HTML, CSS, Vanilla JS
-- Database: NoSQL (MongoDB Atlas)
-- Deployment: Render (Backend + Frontend)
+- **Backend:** FastAPI (Python) + MongoDB (Atlas)  
+- **Frontend:** HTML, CSS, Vanilla JS  
+- **Database:** NoSQL (MongoDB Atlas)  
+- **Deployment:** Render (Backend + Frontend)  
 
 ---
 
 ## Work In Progress
 
-This project is actively being developed. Below is the estimated roadmap:
+This project is actively being developed. Below is the accelerated roadmap based on current progress:
 
 ### 🗓️ **Estimated Development Phases**
 
 | Phase                 | Description                          | Timeline         |
 |----------------------|--------------------------------------|------------------|
-| **Phase 1**          | Backend API basic setup (GET random quote) | Week 1          |
-| **Phase 2**          | Full CRUD operations (add, update, delete) | Week 2          |
-| **Phase 3**          | Simple frontend website integration   | Week 3          |
-| **Phase 4**          | Public deployment to Render (API + Website) | Week 4          |
-| **Phase 5** *(Optional)* | Search, filters, polish, docs improvements | Week 5+       |
+| **Phase 1**          | Backend API basic setup (random quote) | Week 1          |
+| **Phase 2**          | Full CRUD operations + search, filters | Week 1          |
+| **Phase 3**          | Frontend website integration (HTML, CSS, JS) | Week 2          |
+| **Phase 4**          | Public deployment to Render (API + Website) | Week 2–3        |
+| **Phase 5** *(Optional)* | Extra polish, advanced filters, documentation | Week 3+         |
 
 ---
 
@@ -42,7 +42,8 @@ This project is actively being developed. Below is the estimated roadmap:
 
 - Get random quote  
 - Full CRUD for quotes (create, read, update, delete)  
-- Public REST API  
+- Search and filtering  
+- Public REST API with consistent JSON formatting  
 - Simple responsive frontend website  
 - Cloud-hosted database  
 
