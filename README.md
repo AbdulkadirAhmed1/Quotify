@@ -32,9 +32,9 @@ This project is actively being developed. Below is the accelerated roadmap based
 |----------------------|--------------------------------------|------------------|
 | **Phase 1**          | Backend API basic setup (random quote) | Week 1          |
 | **Phase 2**          | Full CRUD operations + search, filters (add, update, delete) | Week 1          |
-| **Phase 3**          | Frontend website integration (HTML, CSS, JS) | Week 2          |
-| **Phase 4**          | Public deployment to Render (API + Website) | Week 2–3        |
-| **Phase 5** *(Optional)* | Extra polish, advanced filters, documentation | Week 3+         |
+| **Phase 3**          | Frontend website integration (HTML, CSS, JS) | Week 2-3          |
+| **Phase 4**          | Public deployment to Render (API + Website) | Week 4        |
+| **Phase 5** *(Optional)* | Extra polish, advanced filters, documentation | Week 4+         |
 
 ---
 
