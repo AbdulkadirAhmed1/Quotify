@@ -16,7 +16,7 @@ It's designed as a learning tool and portfolio project to demonstrate real backe
 
 **Tech Stack:**  
 - Backend: FastAPI (Python) + MongoDB (Atlas)  
-- Frontend: HTML, CSS, Vanilla JS  
+- Frontend: HTML, CSS, Modular Vanilla JS (no frameworks)
 - Database: NoSQL (MongoDB Atlas)  
 - Deployment: Render (Backend + Frontend)  
 
