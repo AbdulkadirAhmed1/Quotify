@@ -1,38 +1,41 @@
 // /frontend/js/main.js
-const quoteText = document.getElementById('quote');
-const authorText = document.getElementById('author');
-const newQuoteBtn = document.getElementById('new-quote');
-const loader = document.getElementById('loader');
 
-async function fetchQuote() {
-  try {
-    // Show loader and hide quote while loading
-    loader.classList.remove('hidden');
-    quoteText.classList.add('hidden');
-    authorText.classList.add('hidden');
+import { loadComponent } from './components.js';
+import { fetchQuote } from './features/quote.js';
+import { setupFiltering } from './features/filter.js'; // merged logic
 
-    const res = await fetch('http://127.0.0.1:8000/quotes/random');
-    const data = await res.json();
+window.addEventListener('DOMContentLoaded', async () => {
+  await loadComponent('app', './components/01_HomeLayout.html?t=' + Date.now());
 
-    //  Optional delay to make the loading visible (e.g. 700ms)
-    await new Promise(resolve => setTimeout(resolve, 700));
+  await loadComponent('header-slot', './components/02_Header.html');
+  await loadComponent('display-slot', './components/03_QuoteDisplay.html');
+  await loadComponent('controls-slot', './components/04_QuoteControls.html');
+  await loadComponent('search-slot', './components/05_SearchFilter.html');
+  await loadComponent('list-slot', './components/06_QuoteList.html');
+  await loadComponent('footer-slot', './components/07_QuoteFooter.html');
 
-    quoteText.textContent = `"${data.data.text}"`;
-    authorText.textContent = data.data.author ? `— ${data.data.author}` : '— Unknown';
+  // DOM refs
+  const quoteText = document.getElementById('quote');
+  const authorText = document.getElementById('author');
+  const newQuoteBtn = document.getElementById('new-quote');
+  const favoriteBtn = document.getElementById('favorite-btn');
+  const loader = document.getElementById('loader');
 
-  } catch (err) {
-    quoteText.textContent = 'Error fetching quote.';
-    authorText.textContent = '';
-  } finally {
-    // Hide loader and show quote after fetch completes
-    loader.classList.add('hidden');
-    quoteText.classList.remove('hidden');
-    authorText.classList.remove('hidden');
-  }
-}
+  const favorites = [];
 
+  newQuoteBtn?.addEventListener('click', () => {
+    fetchQuote({ loader, quoteText, authorText });
+  });
 
-newQuoteBtn.addEventListener('click', fetchQuote);
+  favoriteBtn?.addEventListener('click', () => {
+    const quote = quoteText.textContent;
+    const author = authorText.textContent;
+    if (!quote || !author) return;
+    favorites.push({ text: quote, author });
+    console.log('Saved to favorites:', favorites);
+  });
 
-// Load one on first open
-fetchQuote();
+  fetchQuote({ loader, quoteText, authorText });
+
+  setupFiltering(); 
+});

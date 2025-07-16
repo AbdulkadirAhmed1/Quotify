@@ -4,39 +4,46 @@ GET http://127.0.0.1:8000/quotes/random
 ### Get First 3 Quotes (Returns up to 3 quotes)
 GET http://127.0.0.1:8000/quotes?skip=0&limit=3
 
-
 ### Get Next 3 Quotes (Skips first 3, returns next set)
 GET http://127.0.0.1:8000/quotes?skip=3&limit=3
-
 
 ### Get All Quotes Default (Defaults to 10 if no limit provided)
 GET http://127.0.0.1:8000/quotes
 
-
 ### Get All Quotes with Large Limit (Capped at total available)
 GET http://127.0.0.1:8000/quotes?skip=0&limit=100
-
 
 ### Get Quotes with Skip Beyond Range (Expect "No quotes found")
 GET http://127.0.0.1:8000/quotes?skip=999&limit=5
 
-### Add Valid Quote 1
+### Add Valid Quote 1 (No tags)
 POST http://127.0.0.1:8000/quotes
 Content-Type: application/json
 
 {
   "text": "Test quote from VSCode",
-  "author": "VSCode Tester"
+  "author": "VSCode Tester",
+  "tags": []
 }
 
-
-### Add Valid Quote 2
+### Add Valid Quote 2 (With tags)
 POST http://127.0.0.1:8000/quotes
 Content-Type: application/json
 
 {
   "text": "Discipline is freedom.",
-  "author": "Anonymous"
+  "author": "Anonymous",
+  "tags": ["discipline", "freedom"]
+}
+
+### Add Valid Quote 3 (Multiple tags)
+POST http://127.0.0.1:8000/quotes
+Content-Type: application/json
+
+{
+  "text": "The grind never ends.",
+  "author": "Hustler",
+  "tags": ["grind", "motivation", "success"]
 }
 
 ### Add Quote with Excessive Text (Expect 422)
@@ -45,9 +52,9 @@ Content-Type: application/json
 
 {
   "text": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-  "author": "Test"
+  "author": "Test",
+  "tags": []
 }
-
 
 ### Add Quote with Empty Author (Expect 422)
 POST http://127.0.0.1:8000/quotes
@@ -55,7 +62,8 @@ Content-Type: application/json
 
 {
   "text": "Valid quote",
-  "author": ""
+  "author": "",
+  "tags": []
 }
 
 ### Add Invalid Quote (Empty text)
@@ -64,39 +72,48 @@ Content-Type: application/json
 
 {
   "text": "",
-  "author": "Test"
+  "author": "Test",
+  "tags": []
 }
 
-
-### Add Invalid Quote (Empty author)
+### Add Invalid Quote (Missing tags field, valid fallback)
 POST http://127.0.0.1:8000/quotes
 Content-Type: application/json
 
 {
   "text": "Great quote",
-  "author": ""
+  "author": "Test"
 }
 
 ### Delete Quote by ID
-DELETE http://127.0.0.1:8000/quotes/[Insert_ID]  
+DELETE http://127.0.0.1:8000/quotes/[Insert_ID]
 
 ### Delete All Quotes
-DELETE http://127.0.0.1:8000/quotes 
+DELETE http://127.0.0.1:8000/quotes
 
-### Update Existing Quote
+### Update Existing Quote (Replace text, author, and tags)
 PATCH http://127.0.0.1:8000/quotes/6865c2f971f9e01bf1a41b28
 Content-Type: application/json
 
 {
   "text": "Updated wisdom.",
-  "author": "Editor"
+  "author": "Editor",
+  "tags": ["update", "editorial"]
 }
 
-### Search Quotes
-GET http://127.0.0.1:8000/quotes/search?query= 
+### Search Quotes by Text or Author (Valid)
+GET http://127.0.0.1:8000/quotes/search?query=discipline
 
+### Search Quotes (Too short - Expect 422)
+GET http://127.0.0.1:8000/quotes/search?query=hi
 
-### -----[EXTRA TEST]-------- 
+### Search Quotes (Expect No Results)
+GET http://127.0.0.1:8000/quotes/search?query=nonexistent
+
+### Get All Unique Tags
+GET http://127.0.0.1:8000/quotes/tags
+
+### -----[EXTRA TEST]--------
 
 ### Add Quote 1 (Oldest)
 POST http://127.0.0.1:8000/quotes
@@ -104,7 +121,8 @@ Content-Type: application/json
 
 {
   "text": "First quote",
-  "author": "Tester"
+  "author": "Tester",
+  "tags": ["life", "beginning"]
 }
 
 ### Add Quote 2
@@ -113,7 +131,8 @@ Content-Type: application/json
 
 {
   "text": "Second quote",
-  "author": "Tester"
+  "author": "Tester",
+  "tags": ["life", "middle"]
 }
 
 ### Add Quote 3 (Newest)
@@ -122,7 +141,8 @@ Content-Type: application/json
 
 {
   "text": "Newest insight",
-  "author": "Tester"
+  "author": "Tester",
+  "tags": ["life", "end"]
 }
 
 ### Get All Quotes Sorted (Expect newest first)
