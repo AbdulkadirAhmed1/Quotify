@@ -1,5 +1,7 @@
 // /frontend/js/features/search.js
 
+import { API_BASE_URL } from '../config.js';
+
 export function setupSearch() {
   const searchInput = document.getElementById('search-input');
   const quoteList = document.getElementById('quote-list');
@@ -22,7 +24,7 @@ export function setupSearch() {
     }
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/quotes/search?query=${encodeURIComponent(query)}`, {
+      const res = await fetch(`${API_BASE_URL}/quotes/search?query=${encodeURIComponent(query)}`, {
         signal: controller.signal
       });
       const data = await res.json();

@@ -1,5 +1,37 @@
 <!-- /components/07_QuoteFooter.html -->
-<div class="btn-row bottom-buttons">
-  <button class="quote-btn secondary">➕ Add New Quote</button>
-  <button class="quote-btn secondary">⭐ View Favorites</button>
+<div class="section" id="add-quote-toggle-wrapper">
+  <div class="btn-row">
+    <button id="toggle-quote-form" class="quote-btn secondary">
+      ➕ Add New Quote
+    </button>
+    <button id="view-favorites-btn" class="quote-btn secondary">
+      ⭐ View Favorites
+    </button>
+  </div>
+
+  <div id="quote-form-container" class="hidden" style="margin-top: 1rem;">
+    <form id="quote-form">
+      <input
+        type="text"
+        id="quote-input"
+        placeholder="Quote text"
+        class="search-input"
+        required
+      />
+      <input
+        type="text"
+        id="author-input"
+        placeholder="Author (optional)"
+        class="search-input"
+      />
+
+      <!-- Spinner loader (reuses #loader styles) -->
+      <div id="form-loader" class="hidden"></div>
+
+      <button type="submit" class="quote-btn primary">Add Quote</button>
+    </form>
+
+    <!-- Status message -->
+    <p id="form-message" style="margin-top: 0.5rem; color: #6ee7b7;"></p>
+  </div>
 </div>

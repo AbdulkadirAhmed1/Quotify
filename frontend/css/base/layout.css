@@ -1,0 +1,25 @@
+/* frontend/css/base/layout.css */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #0f111a;
+  font-family: 'Segoe UI', sans-serif;
+  color: #f2f2f2;
+  overflow-x: hidden;
+  font-size: clamp(14px, 2vw, 18px);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Layout Wrapper */
+.section {
+  margin: 2rem auto;
+  max-width: 700px;
+  padding: 0 1rem;
+}

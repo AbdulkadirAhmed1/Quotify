@@ -1,0 +1,78 @@
+/* frontend/css/components/quoteBtn.css */
+
+/* Quote Display */
+.quote-text {
+  font-size: 1.6rem;
+  font-style: italic;
+  text-align: center;
+  color: #e2e2e2;
+  text-shadow: 0 0 4px #000;
+  margin-bottom: 0.5rem;
+}
+
+.quote-author {
+  font-size: 1rem;
+  color: #aaa;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Buttons */
+.quote-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.quote-btn:hover {
+  filter: brightness(1.1);
+  transform: scale(1.03);
+}
+
+.quote-btn:active {
+  transform: scale(0.97);
+}
+
+/* Primary (Blue/Purple) */
+.quote-btn.primary {
+  background-color: #3c8fff;
+  color: white;
+}
+
+/* Secondary (Purple) */
+.quote-btn.secondary {
+  background-color: #713cff;
+  color: white;
+}
+
+/* Special White Button */
+.quote-btn.white {
+  background-color: white;
+  color: #222;
+}
+
+/* Button Row */
+.btn-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+/* Divider */
+.divider {
+  border: none;
+  border-top: 1px solid #333;
+  margin: 2rem auto 1.5rem;
+  width: 90%;
+}

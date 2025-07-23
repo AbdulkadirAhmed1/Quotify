@@ -1,0 +1,29 @@
+/* frontend/css/base/typography.css */
+
+/* Header */
+#header {
+  text-align: center;
+  padding: 2rem 1rem 0.5rem;
+}
+
+.site-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 0 0 8px #713cff66;
+}
+
+.motto {
+  font-size: 1rem;
+  color: #bbb;
+  margin-top: 0.5rem;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+/* App Container */
+#app {
+  width: 100%;
+  flex-grow: 1;
+  padding-bottom: 2rem;
+}

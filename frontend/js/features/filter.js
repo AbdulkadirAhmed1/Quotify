@@ -1,5 +1,7 @@
 // /frontend/js/features/filter.js
 
+import { API_BASE_URL } from '../config.js';
+
 let allQuotes = [];
 let currentQuery = '';
 let currentTag = '';
@@ -13,7 +15,7 @@ export function setupFiltering() {
   if (!searchInput || !tagFilter || !quoteList) return;
 
   // Initial fetch to cache all quotes
-  fetch('http://127.0.0.1:8000/quotes')
+  fetch(`${API_BASE_URL}/quotes`)
     .then(res => res.json())
     .then(data => {
       allQuotes = data.data || [];

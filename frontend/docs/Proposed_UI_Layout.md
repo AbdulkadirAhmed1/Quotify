@@ -53,7 +53,9 @@ This document outlines the user interface (UI) and user experience (UX) design p
 ├── QuoteControls.html    ← new + favorite buttons
 ├── SearchFilter.html     ← search + tag filter
 ├── QuoteList.html        ← quote list placeholder
-├── QuoteFooter.html      ← add + view favorites
+├── QuoteFooter.html      ← add + view favorites 
+├── AddQuoteForm.html     ← footer
+
 
 ---
 
@@ -65,6 +67,6 @@ This document outlines the user interface (UI) and user experience (UX) design p
 
 ---
 
-> **Status**: ✅ Current version completed (random quote)  
+> **Status**: Current version completed (random quote)  
 > **Next step**: Implement modular layout + persistent favorites
 
