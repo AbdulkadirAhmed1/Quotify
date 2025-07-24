@@ -1,4 +1,3 @@
-// /frontend/js/features/addQuote.js
 import { API_BASE_URL } from '../config.js';
 
 export function setupAddQuoteForm() {
@@ -8,15 +7,7 @@ export function setupAddQuoteForm() {
   const quoteInput = document.getElementById('quote-input');
   const authorInput = document.getElementById('author-input');
   const formMessage = document.getElementById('form-message');
-
-  // NEW: Create or grab loader
-  let loader = document.getElementById('form-loader');
-  if (!loader) {
-    loader = document.createElement('div');
-    loader.id = 'form-loader';
-    loader.classList.add('hidden');
-    formContainer.prepend(loader);
-  }
+  const loader = document.getElementById('form-loader'); // ✅ Now points to correct loader in HTML
 
   toggleBtn?.addEventListener('click', () => {
     formContainer.classList.toggle('hidden');
@@ -33,8 +24,7 @@ export function setupAddQuoteForm() {
       return;
     }
 
-    // Show loader and hide message
-    loader.classList.remove('hidden');
+    loader?.classList.remove('hidden'); // ✅ Show spinner
     formMessage.textContent = '';
 
     try {
@@ -50,8 +40,7 @@ export function setupAddQuoteForm() {
         }),
       });
 
-      // Simulated delay for testing visual feedback
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulated delay
 
       const result = await res.json();
 
@@ -66,9 +55,8 @@ export function setupAddQuoteForm() {
       console.error('Error submitting quote:', err);
       formMessage.textContent = 'Error submitting quote.';
     } finally {
-      loader.classList.add('hidden');
+      loader?.classList.add('hidden'); // ✅ Hide spinner
 
-      // Optional: Hide message after 3 seconds
       setTimeout(() => {
         formMessage.textContent = '';
       }, 3000);

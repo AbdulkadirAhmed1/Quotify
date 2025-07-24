@@ -24,14 +24,20 @@
         placeholder="Author (optional)"
         class="search-input"
       />
-
-      <!-- Spinner loader (reuses #loader styles) -->
-      <div id="form-loader" class="hidden"></div>
-
       <button type="submit" class="quote-btn primary">Add Quote</button>
     </form>
 
-    <!-- Status message -->
-    <p id="form-message" style="margin-top: 0.5rem; color: #6ee7b7;"></p>
+    <!-- ✅ Loader & message appear inline, bottom left -->
+    <div style="margin-top: 0.5rem; display: flex; align-items: center;">
+      <div
+        id="form-loader"
+        class="form-loader hidden"
+        style="width: 24px; height: 24px;"
+      ></div>
+      <p
+        id="form-message"
+        style="margin-left: 0.5rem; color: #6ee7b7;"
+      ></p>
+    </div>
   </div>
 </div>
