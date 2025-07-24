@@ -7,7 +7,7 @@ export function setupAddQuoteForm() {
   const quoteInput = document.getElementById('quote-input');
   const authorInput = document.getElementById('author-input');
   const formMessage = document.getElementById('form-message');
-  const loader = document.getElementById('form-loader'); // ✅ Now points to correct loader in HTML
+  const loader = document.getElementById('form-loader'); // Now points to correct loader in HTML
 
   toggleBtn?.addEventListener('click', () => {
     formContainer.classList.toggle('hidden');
@@ -24,7 +24,7 @@ export function setupAddQuoteForm() {
       return;
     }
 
-    loader?.classList.remove('hidden'); // ✅ Show spinner
+    loader?.classList.remove('hidden'); // Show spinner
     formMessage.textContent = '';
 
     try {
@@ -55,7 +55,7 @@ export function setupAddQuoteForm() {
       console.error('Error submitting quote:', err);
       formMessage.textContent = 'Error submitting quote.';
     } finally {
-      loader?.classList.add('hidden'); // ✅ Hide spinner
+      loader?.classList.add('hidden'); // Hide spinner
 
       setTimeout(() => {
         formMessage.textContent = '';

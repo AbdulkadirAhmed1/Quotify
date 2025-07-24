@@ -1,4 +1,3 @@
-<!-- /components/07_QuoteFooter.html -->
 <div class="section" id="add-quote-toggle-wrapper">
   <div class="btn-row">
     <button id="toggle-quote-form" class="quote-btn secondary">
@@ -27,17 +26,10 @@
       <button type="submit" class="quote-btn primary">Add Quote</button>
     </form>
 
-    <!-- ✅ Loader & message appear inline, bottom left -->
-    <div style="margin-top: 0.5rem; display: flex; align-items: center;">
-      <div
-        id="form-loader"
-        class="form-loader hidden"
-        style="width: 24px; height: 24px;"
-      ></div>
-      <p
-        id="form-message"
-        style="margin-left: 0.5rem; color: #6ee7b7;"
-      ></p>
+    <!-- Aligned loader + message -->
+    <div class="form-status-container">
+      <div id="form-loader" class="form-loader hidden"></div>
+      <p id="form-message" class="form-message"></p>
     </div>
   </div>
 </div>

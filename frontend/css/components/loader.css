@@ -1,37 +1,34 @@
-/* frontend/css/components/loader.css */
+/* Loader spinner animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
-/* Loader */
+/* Hide/show utility */
 .hidden {
   display: none;
 }
 
-#loader {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #00bfff;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  margin: 0 auto 1rem;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-} 
-
-
+/* Spinner for quote form */
 #form-loader {
   border: 4px solid #f3f3f3;
   border-top: 4px solid #00bfff;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  margin-top: 1rem;
-
-  /* 🔀 Position it to the left */
-  margin-left: 0;
-  margin-right: auto;
-
+  width: 24px;
+  height: 24px;
   animation: spin 1s linear infinite;
+}
+
+/* Loader + Message wrapper */
+.form-status-container {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Message styling */
+.form-message {
+  margin-left: 0.5rem;
+  color: #6ee7b7;
 }
