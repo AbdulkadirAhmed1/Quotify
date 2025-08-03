@@ -1,8 +1,9 @@
-// /frontend/js/features/filter.js
+// /frontend/js/features/filter.js 
 
 import { API_BASE_URL } from '../config.js';
+import { populateTags } from '../utils/tag.js';
+import { setQuotes, getQuotes } from '../data/quotesStore.js';
 
-let allQuotes = [];
 let currentQuery = '';
 let currentTag = '';
 
@@ -14,11 +15,11 @@ export function setupFiltering() {
 
   if (!searchInput || !tagFilter || !quoteList) return;
 
-  // Initial fetch to cache all quotes
   fetch(`${API_BASE_URL}/quotes`)
     .then(res => res.json())
     .then(data => {
-      allQuotes = data.data || [];
+      const allQuotes = data.data || [];
+      setQuotes(allQuotes);                    // ✅ store quotes globally
       populateTags(tagFilter, allQuotes);
     })
     .catch(err => console.error('Error loading quotes:', err));
@@ -34,7 +35,9 @@ export function setupFiltering() {
   });
 
   function applyFilters() {
-    const filtered = allQuotes.filter(q => {
+    const quotes = getQuotes();
+
+    const filtered = quotes.filter(q => {
       const matchesText =
         !currentQuery ||
         q.text.toLowerCase().includes(currentQuery) ||
@@ -66,19 +69,4 @@ export function setupFiltering() {
 
     quoteListContainer.classList.remove('hidden');
   }
-}
-
-function populateTags(selectEl, quotes) {
-  const tagSet = new Set();
-
-  quotes.forEach(q => {
-    q.tags?.forEach(tag => tagSet.add(tag));
-  });
-
-  [...tagSet].sort().forEach(tag => {
-    const option = document.createElement('option');
-    option.value = tag;
-    option.textContent = tag;
-    selectEl.appendChild(option);
-  });
 }

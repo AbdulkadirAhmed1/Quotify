@@ -1,3 +1,4 @@
+<!-- /components/07_QuoteFooter.html -->
 <div class="section" id="add-quote-toggle-wrapper">
   <div class="btn-row">
     <button id="toggle-quote-form" class="quote-btn secondary">
@@ -23,10 +24,15 @@
         placeholder="Author (optional)"
         class="search-input"
       />
+      <input
+        type="text"
+        id="tags-input"
+        placeholder="Tags (comma-separated)"
+        class="search-input"
+      />
       <button type="submit" class="quote-btn primary">Add Quote</button>
     </form>
 
-    <!-- Aligned loader + message -->
     <div class="form-status-container">
       <div id="form-loader" class="form-loader hidden"></div>
       <p id="form-message" class="form-message"></p>

@@ -1,5 +1,7 @@
 # 🧩 Proposed UI Layout – Quotify
 
+Current Date: 7/4/2025 
+
 This document outlines the user interface (UI) and user experience (UX) design plan for the **Quotify** app. It serves as a visual and functional reference before expanding frontend features.
 
 ---
@@ -18,7 +20,7 @@ This document outlines the user interface (UI) and user experience (UX) design p
 |   [ Search 🔍 | 🔽 Filter by Tag ▼ ]      |
 |   ------------------------------------   |
 |                                          |
-|     List of All Quotes (Optional)        |
+|     List of All Quotes (By Search)        |
 |   ┌──────────────────────────────┐       |
 |   │ "A quote..."     — Author    │       |
 |   └──────────────────────────────┘       |

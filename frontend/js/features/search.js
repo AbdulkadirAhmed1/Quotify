@@ -1,55 +1,62 @@
 // /frontend/js/features/search.js
 
-import { API_BASE_URL } from '../config.js';
+import { getQuotes } from '../data/quotesStore.js';
 
 export function setupSearch() {
   const searchInput = document.getElementById('search-input');
+  const tagFilter = document.getElementById('tag-filter');
+
+  searchInput?.addEventListener('input', () => {
+    const query = searchInput.value.trim();
+    const tag = tagFilter?.value || '';
+    performSearch(query, tag);
+  });
+
+  tagFilter?.addEventListener('change', () => {
+    const query = searchInput?.value.trim() || '';
+    const tag = tagFilter?.value || '';
+    performSearch(query, tag);
+  });
+}
+
+export async function performSearch(query, tag) {
   const quoteList = document.getElementById('quote-list');
   const quoteListContainer = document.querySelector('.quote-list');
 
-  let controller = null; // Abort controller
+  if (!quoteList || !quoteListContainer) return;
 
-  searchInput?.addEventListener('input', async (e) => {
-    const query = e.target.value.trim();
+  if ((!query || query.length < 3) && !tag) {
+    quoteList.innerHTML = `<div class="quote-empty">Type at least 3 characters to search.</div>`;
+    quoteListContainer.classList.remove('hidden');
+    return;
+  }
 
-    // Abort previous search request if it exists
-    if (controller) controller.abort();
-    controller = new AbortController();
+  const allQuotes = getQuotes();
 
-    // If too short, show early message and exit
-    if (query.length < 3) {
-      quoteList.innerHTML = `<div class="quote-empty">Type at least 3 characters to search.</div>`;
-      quoteListContainer?.classList.remove('hidden');
-      return;
-    }
+  const filtered = allQuotes.filter(q => {
+    const matchText =
+      !query ||
+      q.text.toLowerCase().includes(query.toLowerCase()) ||
+      q.author.toLowerCase().includes(query.toLowerCase());
 
-    try {
-      const res = await fetch(`${API_BASE_URL}/quotes/search?query=${encodeURIComponent(query)}`, {
-        signal: controller.signal
-      });
-      const data = await res.json();
-
-      quoteList.innerHTML = '';
-
-      if (!data.data || data.data.length === 0) {
-        quoteList.innerHTML = `<div class="quote-empty">No quotes found.</div>`;
-      } else {
-        data.data.forEach(q => {
-          quoteList.innerHTML += `
-            <div class="quote-item">
-              <div class="quote-text">"${q.text}"</div>
-              <div class="quote-author">— ${q.author || 'Unknown'}</div>
-            </div>
-          `;
-        });
-      }
-
-      quoteListContainer?.classList.remove('hidden');
-    } catch (err) {
-      if (err.name === 'AbortError') return; // Ignore cancelled request
-      console.error('Search error:', err);
-      quoteList.innerHTML = `<div class="quote-empty">Error fetching quotes.</div>`;
-      quoteListContainer?.classList.remove('hidden');
-    }
+    const matchTag = !tag || (q.tags && q.tags.includes(tag));
+    return matchText && matchTag;
   });
+
+  quoteList.innerHTML = '';
+
+  if (filtered.length === 0) {
+    quoteList.innerHTML = `<div class="quote-empty">No quotes found.</div>`;
+  } else {
+    filtered.forEach(q => {
+      quoteList.innerHTML += `
+        <div class="quote-item">
+          <div class="quote-text">"${q.text}"</div>
+          <div class="quote-author">— ${q.author || 'Unknown'}</div>
+        </div>
+      `;
+    });
+  }
+
+  quoteListContainer.classList.remove('hidden');
 }

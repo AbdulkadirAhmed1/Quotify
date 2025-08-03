@@ -76,7 +76,8 @@
 
 /* Inputs should fill that 220px max width */
 #quote-input,
-#author-input {
+#author-input, 
+#tags-input {
   width: 100%;
   background: #1a1c29;
   border: 1px solid #444;

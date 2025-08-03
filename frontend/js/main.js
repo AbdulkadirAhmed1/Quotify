@@ -1,3 +1,4 @@
+// /frontend/js/main.js
 import { loadComponent } from './components.js';
 import { fetchQuote } from './features/quote.js';
 import { setupFiltering } from './features/filter.js';
