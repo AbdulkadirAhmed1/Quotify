@@ -8,3 +8,7 @@ export function addFavorite(text, author) {
 export function getFavorites() {
   return favorites;
 }
+
+export function removeFavorite(index) {
+  favorites.splice(index, 1);
+}

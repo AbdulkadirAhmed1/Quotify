@@ -19,7 +19,7 @@ export function setupFiltering() {
     .then(res => res.json())
     .then(data => {
       const allQuotes = data.data || [];
-      setQuotes(allQuotes);                    // ✅ store quotes globally
+      setQuotes(allQuotes);                    // store quotes globally
       populateTags(tagFilter, allQuotes);
     })
     .catch(err => console.error('Error loading quotes:', err));
@@ -35,9 +35,9 @@ export function setupFiltering() {
   });
 
   function applyFilters() {
-    const quotes = getQuotes();
+    const allQuotes = getQuotes();
 
-    const filtered = quotes.filter(q => {
+    const filtered = allQuotes.filter(q => {
       const matchesText =
         !currentQuery ||
         q.text.toLowerCase().includes(currentQuery) ||
@@ -58,12 +58,52 @@ export function setupFiltering() {
       quoteList.innerHTML = `<div class="quote-empty">No matching quotes found.</div>`;
     } else {
       filtered.forEach(q => {
-        quoteList.innerHTML += `
-          <div class="quote-item">
-            <div class="quote-text">"${q.text}"</div>
-            <div class="quote-author">— ${q.author || 'Unknown'}</div>
-          </div>
-        `;
+        const card = document.createElement('div');
+        card.className = 'quote-card';
+
+        const display = document.createElement('div');
+        display.className = 'quote-display';
+
+        const message = document.createElement('div');
+        message.className = 'quote-message';
+        message.textContent = `"${q.text}"`;
+
+        const author = document.createElement('div');
+        author.className = 'quote-writer';
+        author.textContent = `— ${q.author || 'Unknown'}`;
+
+        display.appendChild(message);
+        display.appendChild(author);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'quote-remove-btn';
+        deleteBtn.textContent = '🗑️ Delete';
+
+        // DELETE HANDLER
+        deleteBtn.addEventListener('click', async () => {
+          try {
+            const res = await fetch(`${API_BASE_URL}/quotes/${q.id}`, {
+              method: 'DELETE'
+            });
+
+            if (!res.ok) throw new Error('Delete failed');
+
+            const updatedQuotes = getQuotes().filter(q2 => q2.id !== q.id);
+            setQuotes(updatedQuotes);
+            populateTags(tagFilter, updatedQuotes);
+            applyFilters();  
+            
+            const quoteListContainer = document.querySelector('.quote-list');
+            quoteListContainer?.classList.add('hidden');
+          } catch (err) {
+            console.error('Error deleting quote:', err);
+            alert('Failed to delete quote.');
+          }
+        });
+
+        card.appendChild(display);
+        card.appendChild(deleteBtn);
+        quoteList.appendChild(card);
       });
     }
 

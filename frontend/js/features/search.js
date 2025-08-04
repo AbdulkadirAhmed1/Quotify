@@ -48,14 +48,17 @@ export async function performSearch(query, tag) {
   if (filtered.length === 0) {
     quoteList.innerHTML = `<div class="quote-empty">No quotes found.</div>`;
   } else {
-    filtered.forEach(q => {
-      quoteList.innerHTML += `
-        <div class="quote-item">
-          <div class="quote-text">"${q.text}"</div>
-          <div class="quote-author">— ${q.author || 'Unknown'}</div>
-        </div>
-      `;
-    });
+filtered.forEach(q => {
+  quoteList.innerHTML += `
+    <div class="quote-card">
+      <div class="quote-display">
+        <div class="quote-message">"${q.text}"</div>
+        <div class="quote-writer">— ${q.author || 'Unknown'}</div>
+      </div>
+      <button class="quote-remove-btn">🗑️ Delete</button>
+    </div>
+  `;
+});
   }
 
   quoteListContainer.classList.remove('hidden');

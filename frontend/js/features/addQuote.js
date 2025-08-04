@@ -63,11 +63,14 @@ export function setupAddQuoteForm() {
         const updatedQuotesData = await updatedQuotesRes.json();
         const updatedQuotes = updatedQuotesData.data || [];
 
-        setQuotes(updatedQuotes);                      // ✅ update shared quotes store
-        populateTags(tagFilter, updatedQuotes);        // ✅ update dropdown
+        setQuotes(updatedQuotes);                      // update shared quotes store
+        populateTags(tagFilter, updatedQuotes);        // update dropdown
 
         if ((currentSearch.length >= 3) || currentTag) {
-          performSearch(currentSearch, currentTag);    // ✅ re-search using live data
+          performSearch(currentSearch, currentTag);     // re-search using live data
+        
+          const quoteListContainer = document.querySelector('.quote-list');
+          quoteListContainer?.classList.add('hidden');
         }
       } else {
         formMessage.textContent = result.message || 'Failed to add quote.';

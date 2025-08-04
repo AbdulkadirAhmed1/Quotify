@@ -1,5 +1,5 @@
 // /frontend/js/features/favorites.js
-import { getFavorites } from '../data/favoritesStore.js';
+import { getFavorites, removeFavorite  } from '../data/favoritesStore.js';
 
 let favContainer;
 
@@ -37,10 +37,21 @@ export function renderFavorites() {
     return;
   }
 
-  favContainer.innerHTML = favorites.map(fav => `
+  favContainer.innerHTML = favorites.map((fav, index) => `
     <div class="favorite-item">
       <div class="text">❝ ${fav.text} ❞</div>
       <div class="author">— ${fav.author}</div>
+      <button class="fav-delete-btn" data-index="${index}">🗑️</button>
     </div>
   `).join('');
+
+  // Add delete functionality
+  const deleteButtons = favContainer.querySelectorAll('.fav-delete-btn');
+  deleteButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const index = btn.getAttribute('data-index');
+      removeFavorite(index);
+      renderFavorites(); // re-render after delete
+    });
+  });
 }

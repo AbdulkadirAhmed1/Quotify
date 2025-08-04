@@ -36,3 +36,38 @@
   text-align: center;
   font-size: 1rem;
 }
+
+.favorite-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #1a1c29;
+  padding: 1rem 2.5rem 1rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #2c2e38;
+  margin-bottom: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.favorite-item:hover {
+  background-color: #22242f;
+}
+
+.fav-delete-btn {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 1.1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.favorite-item:hover .fav-delete-btn {
+  opacity: 1;
+}
