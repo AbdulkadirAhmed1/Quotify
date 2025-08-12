@@ -42,7 +42,7 @@ This document outlines the user interface (UI) and user experience (UX) design p
 | **Tag Filter**   | Dropdown or category buttons        | Filters quotes by tag/genre |
 | **Quote List**   | Scrollable list or grid             | Shows all quotes fetched/added |
 | **Add New**      | Modal or collapsible input section  | Lets users submit their own quotes |
-| **Favorites**    | Button/view                         | Shows saved favorites (from localStorage or DB) |
+| **Favorites**    | Button/view                         | Shows saved favorites  |
 
 ---
 

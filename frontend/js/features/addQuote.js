@@ -4,6 +4,7 @@ import { API_BASE_URL } from '../config.js';
 import { populateTags } from '../utils/tag.js';
 import { performSearch } from './search.js';
 import { setQuotes } from '../data/quotesStore.js';
+import { attachDeleteHandlers } from '../utils/deleteHandler.js'; // added
 
 export function setupAddQuoteForm() {
   const toggleBtn = document.getElementById('toggle-quote-form');
@@ -58,19 +59,23 @@ export function setupAddQuoteForm() {
         const currentSearch = searchInput?.value?.trim() || '';
         const currentTag = tagFilter?.value || '';
 
-        // Fetch updated quotes
         const updatedQuotesRes = await fetch(`${API_BASE_URL}/quotes`);
         const updatedQuotesData = await updatedQuotesRes.json();
         const updatedQuotes = updatedQuotesData.data || [];
 
-        setQuotes(updatedQuotes);                      // update shared quotes store
-        populateTags(tagFilter, updatedQuotes);        // update dropdown
+        setQuotes(updatedQuotes);
+        populateTags(tagFilter, updatedQuotes, true);
 
         if ((currentSearch.length >= 3) || currentTag) {
-          performSearch(currentSearch, currentTag);     // re-search using live data
-        
-          const quoteListContainer = document.querySelector('.quote-list');
-          quoteListContainer?.classList.add('hidden');
+          performSearch(currentSearch, currentTag);
+          attachDeleteHandlers(); // cleaner, centralized binding
+        }
+
+        // Auto-trigger the "New Quote" button so a fresh random quote appears
+        const newQuoteBtn = document.getElementById('new-quote');
+        if (newQuoteBtn) {
+          // Let the UI settle first, then click
+          setTimeout(() => newQuoteBtn.click(), 300);
         }
       } else {
         formMessage.textContent = result.message || 'Failed to add quote.';

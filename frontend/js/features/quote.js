@@ -16,7 +16,7 @@ export async function fetchQuote({ loader, quoteText, authorText }) {
     quoteText.textContent = `"${data.data.text}"`;
     authorText.textContent = data.data.author ? `— ${data.data.author}` : '— Unknown';
   } catch (err) {
-    quoteText.textContent = 'Error fetching quote.';
+    quoteText.textContent = 'No quotes found';
     authorText.textContent = '';
   } finally {
     loader.classList.add('hidden');

@@ -1,8 +1,9 @@
-// /frontend/js/features/filter.js 
+// /frontend/js/features/filter.js
 
 import { API_BASE_URL } from '../config.js';
 import { populateTags } from '../utils/tag.js';
 import { setQuotes, getQuotes } from '../data/quotesStore.js';
+import { attachDeleteHandlers } from '../utils/deleteHandler.js';
 
 let currentQuery = '';
 let currentTag = '';
@@ -19,7 +20,7 @@ export function setupFiltering() {
     .then(res => res.json())
     .then(data => {
       const allQuotes = data.data || [];
-      setQuotes(allQuotes);                    // store quotes globally
+      setQuotes(allQuotes);
       populateTags(tagFilter, allQuotes);
     })
     .catch(err => console.error('Error loading quotes:', err));
@@ -36,20 +37,21 @@ export function setupFiltering() {
 
   function applyFilters() {
     const allQuotes = getQuotes();
+    const hasQuery = !!currentQuery && currentQuery.length >= 3;
+    const hasTag = !!currentTag;
 
     const filtered = allQuotes.filter(q => {
-      const matchesText =
-        !currentQuery ||
-        q.text.toLowerCase().includes(currentQuery) ||
-        q.author.toLowerCase().includes(currentQuery);
-      const matchesTag =
-        !currentTag || (q.tags && q.tags.includes(currentTag));
+      const t = (q.text || '').toLowerCase();
+      const a = (q.author || '').toLowerCase();
+      const matchesText = !hasQuery || t.includes(currentQuery) || a.includes(currentQuery);
+      const matchesTag = !hasTag || (q.tags && q.tags.includes(currentTag));
       return matchesText && matchesTag;
     });
 
     quoteList.innerHTML = '';
 
-    if (!currentQuery && !currentTag) {
+    // hide container if no active filters
+    if (!hasQuery && !hasTag) {
       quoteListContainer.classList.add('hidden');
       return;
     }
@@ -58,8 +60,10 @@ export function setupFiltering() {
       quoteList.innerHTML = `<div class="quote-empty">No matching quotes found.</div>`;
     } else {
       filtered.forEach(q => {
+        const id = q.id || q._id; // support both
         const card = document.createElement('div');
         card.className = 'quote-card';
+        card.dataset.id = id;
 
         const display = document.createElement('div');
         display.className = 'quote-display';
@@ -72,39 +76,18 @@ export function setupFiltering() {
         author.className = 'quote-writer';
         author.textContent = `— ${q.author || 'Unknown'}`;
 
-        display.appendChild(message);
-        display.appendChild(author);
-
         const deleteBtn = document.createElement('button');
         deleteBtn.className = 'quote-remove-btn';
         deleteBtn.textContent = '🗑️ Delete';
 
-        // DELETE HANDLER
-        deleteBtn.addEventListener('click', async () => {
-          try {
-            const res = await fetch(`${API_BASE_URL}/quotes/${q.id}`, {
-              method: 'DELETE'
-            });
-
-            if (!res.ok) throw new Error('Delete failed');
-
-            const updatedQuotes = getQuotes().filter(q2 => q2.id !== q.id);
-            setQuotes(updatedQuotes);
-            populateTags(tagFilter, updatedQuotes);
-            applyFilters();  
-            
-            const quoteListContainer = document.querySelector('.quote-list');
-            quoteListContainer?.classList.add('hidden');
-          } catch (err) {
-            console.error('Error deleting quote:', err);
-            alert('Failed to delete quote.');
-          }
-        });
-
+        display.appendChild(message);
+        display.appendChild(author);
         card.appendChild(display);
         card.appendChild(deleteBtn);
         quoteList.appendChild(card);
       });
+
+      attachDeleteHandlers();
     }
 
     quoteListContainer.classList.remove('hidden');
