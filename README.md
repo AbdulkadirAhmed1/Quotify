@@ -22,19 +22,21 @@ It's designed as a learning tool and portfolio project to demonstrate real backe
 
 ---
 
-## Work In Progress
+##  Live Demo
 
-This project is actively being developed. Below is the accelerated roadmap based on current progress:
+- **Frontend Website:** [Quotify Live Website](https://quotify-frontend-i9pu.onrender.com)  
+
+This project is now **feature complete** for its initial scope, with ongoing improvements planned for future versions.
 
 ### 🗓️ **Estimated Development Phases**
 
 | Phase                 | Description                          | Timeline         |
 |----------------------|--------------------------------------|------------------|
-| **Phase 1**          | Backend API basic setup (random quote) | Week 1          |
-| **Phase 2**          | Full CRUD operations + search, filters (add, update, delete) | Week 1          |
-| **Phase 3**          | Frontend website integration (HTML, CSS, JS) | Week 2-3          |
-| **Phase 4**          | Public deployment to Render (API + Website) | Week 4        |
-| **Phase 5** *(Optional)* | Extra polish, advanced filters, documentation | Week 4+         |
+| **Phase 1**          | Backend API basic setup (random quote) | Completed          |
+| **Phase 2**          | Full CRUD operations + search, filters (add, update, delete) | Completed          |
+| **Phase 3**          | Frontend website integration (HTML, CSS, JS) | Completed          |
+| **Phase 4**          | Public deployment to Render (API + Website) | Completed        |
+| **Phase 5** *(Optional)* | Extra polish, advanced filters, documentation | In Progress/Future         |
 
 ---
 
