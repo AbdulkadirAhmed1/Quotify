@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.quotes import router as quotes_router
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-# 🌱 Load environment variables
+#  Load environment variables
 from dotenv import load_dotenv
 import os
 
