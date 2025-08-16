@@ -7,7 +7,7 @@ This full stack app is designed to feel approachable but built with real-world, 
 The frontend? No heavy frameworks here — just pure, responsive HTML, CSS, and Vanilla JavaScript. It's intentionally lightweight to showcase how simple tools can still create something functional and polished.
 
 **Why Quotify matters:**  
-It's designed as a learning tool and portfolio project to demonstrate real backend engineering, API design, and clean full stack development — the same principles recruiters love to see:
+It's designed as a learning tool and portfolio project to demonstrate real backend engineering, API design, and clean full stack development:
 
 - Clear project structure  
 - Professional API response standards  
